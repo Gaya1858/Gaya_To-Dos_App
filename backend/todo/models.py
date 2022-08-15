@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 class Todo(models.Model):
     """
         :param: TYPE_CHOICES and type- whether the todos list is for personal, public or official
-        :param: RATE_CHOICES and rate- important or not
+        :param: RATE_CHOICES and rate-important or not
         :param: title - name of the person
         :param: memo
     """
