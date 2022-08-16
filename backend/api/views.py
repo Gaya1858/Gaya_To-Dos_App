@@ -46,13 +46,13 @@ class TodoListCreate(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class TodoRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
+class TodoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TodoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
-        return Todo.objects.filter(user=user).order_by('-created')
+        return Todo.objects.filter(user=user)
 
 
 class TodoToggleComplete(generics.UpdateAPIView):
@@ -61,10 +61,10 @@ class TodoToggleComplete(generics.UpdateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Todo.objects.filter(user=user).order_by('-created')
+        return Todo.objects.filter(user=user)
 
     def perform_update(self, serializer):
-        serializer.instance.completed = not (serializer.instance.completed)
+        serializer.instance.completed = not serializer.instance.completed
         serializer.save()
 
 
@@ -101,10 +101,8 @@ def login(request):
         if user is None:
             return JsonResponse({'error': "unable to login. check username and password"}, status=400)
         else:
-
             try:
                 token = Token.objects.get(user=user)
-
             except:
                 token = Token.objects.create(user=user)
             return JsonResponse({'token': str(token)}, status=201)
