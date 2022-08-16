@@ -5,7 +5,13 @@ import Button from 'react-bootstrap/Button'; import Container from 'react-bootst
 
 const AddTodo = props => {
     let editing = false;
-    let initialTodoTitle = ""; let initialTodoMemo = "";
+    let initialTodoTitle = "";
+    let initialTodoMemo = "";
+
+    if(props.location.state && props.location.state.currentTodo){
+        editing = true;
+        initialTodoTitle = props.location.state.currentTodo.memo;
+    }
     const [title, setTitle] = useState(initialTodoTitle);
     const [memo, setMemo] = useState(initialTodoMemo); // keeps track if todo is submitted
     const [submitted, setSubmitted] = useState(false);
@@ -20,7 +26,28 @@ const AddTodo = props => {
     }
     const saveTodo = () => {
         var data = {
-        title: title, memo: memo, completed: false,
+        title: title,
+            memo: memo,
+            completed: false,
+        }
+        if(editing){
+            TodoDataService.updateTodo(props.location.state.currentTodo.id,
+                data.props.token).then (response=> {
+                    setSubmitted(true);
+                    console.log(response.data)
+            })
+                .catch(e =>{
+                    console.log(e);
+                })
+        }
+        else{
+            TodoDataService.createTodo(data, props.token).then(response => {
+                setSubmitted(true);
+
+            })
+                .catch(e => {
+                    console.log(e);
+                })
         }
         TodoDataService.createTodo(data, props.token) .then(response =>
         {
