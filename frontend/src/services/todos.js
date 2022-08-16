@@ -7,30 +7,30 @@ class TodoDataService{
     // for our axios request.
     getAll(token){
         axios.defaults.headers.common["Authorization"] = "Token"+token;
-        return axios.get('http://localhost:8000/api/todos/');
+        return axios.get('http://http://gaya1858.pythonanywhere.com/api/todos/');
     }
 
     createTodo(data, token){
         axios.defaults.headers.common["Authorization"] = "Token"+token;
-        return axios.post('http://localhost:8000/api/todos/', data);
+        return axios.post('http://http://gaya1858.pythonanywhere.com/api/todos/', data);
     }
     updateTodo(id, data, token){
         axios.defaults.headers.common["Authorization"] = "Token"+token;
-        return axios.put(`http://localhost:8000/api/todos/${id}`,data);
+        return axios.put(`http://http://gaya1858.pythonanywhere.com/api/todos/${id}`,data);
     }
     deleteTodo(id, token){
         axios.defaults.headers.common["Authorization"] = "Token"+token;
-        return axios.delete(`http://localhost:8000/api/todos/${id}`);
+        return axios.delete(`http://http://gaya1858.pythonanywhere.com/api/todos/${id}`);
     }
     completeTodo(id, token){
         axios.defaults.headers.common["Authorization"] = "Token"+token;
-        return axios.put(`http://localhost:8000/api/todos/${id}/complete`);
+        return axios.put(`http://http://gaya1858.pythonanywhere.com0/api/todos/${id}/complete`);
     }
     login(data){
-        return axios.post("http://localhost:8000/api/login/", data);
+        return axios.post("http://http://gaya1858.pythonanywhere.com/api/login/", data);
     }
     signup(data){
-        return axios.post("http://localhost:8000/api/signup/", data);
+        return axios.post("http://http://gaya1858.pythonanywhere.com0/api/signup/", data);
     }
 
 }
